@@ -29,9 +29,15 @@ export function AppointmentCreate() {
     function handleOpenGuilds() {
         setOpenGuildsModal(true)
     }
+    function handleCloseGuilds() {
+        setOpenGuildsModal(false)
+    }
     function handleGuildsSelect(guildSelect: GuildProps) {
         setGuild(guildSelect)
         setOpenGuildsModal(false)
+    }
+    function handleCategory(categoryId: string) {
+        setCategory(categoryId)
     }
 
     return (
@@ -39,8 +45,8 @@ export function AppointmentCreate() {
             style={styles.container}
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         >
-            <ScrollView>
-                <BackGround>
+            <BackGround>
+                <ScrollView>
                     <Header
                         title='Agendar partida'
                     />
@@ -52,7 +58,7 @@ export function AppointmentCreate() {
 
                     <CategorySelect
                         hasCheckBox
-                        setCategory={setCategory}
+                        setCategory={handleCategory}
                         categorySelected={category}
                     />
 
@@ -84,7 +90,7 @@ export function AppointmentCreate() {
 
                         <View style={styles.field}>
                             <View>
-                                <Text style={styles.label}>Dia e mês</Text>
+                                <Text style={[styles.label, { marginBottom: 12 }]}>Dia e mês</Text>
                                 <View style={styles.column}>
                                     <SmallInput
                                         maxLength={2}
@@ -100,7 +106,7 @@ export function AppointmentCreate() {
                             </View>
 
                             <View>
-                                <Text style={styles.label}>Hora e minuto</Text>
+                                <Text style={[styles.label, { marginBottom: 12 }]}>Hora e minuto</Text>
                                 <View style={styles.column}>
                                     <SmallInput
                                         maxLength={2}
@@ -143,9 +149,11 @@ export function AppointmentCreate() {
 
 
 
-                </BackGround>
-            </ScrollView>
-            <ModalView visible={openGuildsModal}>
+                </ScrollView>
+            </BackGround>
+            <ModalView visible={openGuildsModal}
+                closeModal={handleCloseGuilds}
+            >
                 <Guilds handleGuildSelect={handleGuildsSelect} />
             </ModalView>
 
